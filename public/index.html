@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0f19">
+  <title>Hành trình thức ăn · Hệ tiêu hóa 3D</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <script type="importmap">
+    {"imports":{"three":"/vendor/three/build/three.module.js","three/addons/":"/vendor/three/examples/jsm/"}}
+  </script>
+  <script type="module" src="/js/app.js"></script>
+</head>
+<body>
+  <header class="header">
+    <div class="identity"><span class="symbol" aria-hidden="true">◎</span><span>GIẢI PHẪU TƯƠNG TÁC <span class="edition">/ 01</span></span></div>
+    <span class="local-badge">Mô phỏng 3D · Dữ liệu tĩnh</span>
+  </header>
+  <main>
+    <section class="viewer" aria-labelledby="page-title">
+      <div class="intro"><h1 id="page-title">Hành trình<br><span>thức ăn.</span></h1><p>Một hành trình. Năm giai đoạn.<br>Khám phá cơ thể từ bên trong.</p></div>
+      <div id="viewport" role="img" aria-label="Mô hình 3D hệ tiêu hóa. Dùng chuột kéo để xoay, cuộn để phóng to."></div>
+      <p id="scene-status" role="status">Đang dựng mô hình 3D…</p>
+      <div class="view-tools"><span>Kéo để xoay · Cuộn để phóng to</span><button id="reset-view" type="button">Đặt lại góc nhìn</button></div>
+      <div class="legend"><span class="food-dot"></span> Viên thức ăn <span class="legend-line"></span> Cơ quan đang hoạt động</div>
+    </section>
+    <aside class="hud" aria-labelledby="organ-name">
+      <div class="stage-heading"><span>ĐANG KHÁM PHÁ</span><span id="stage-number">01 / 05</span></div>
+      <div id="stage-content" aria-live="polite" aria-atomic="true">
+        <h2 id="organ-name">Miệng / Thực quản</h2>
+        <p id="organ-detail" class="organ-detail"></p>
+        <dl class="metrics"><div><dt>Thời gian lưu chuyển</dt><dd id="organ-time"></dd></div><div><dt>Môi trường pH</dt><dd id="organ-ph"></dd></div></dl>
+        <div class="ph-scale" aria-hidden="true"><span id="ph-marker"></span></div>
+        <div class="ph-labels" aria-hidden="true"><span>Axit · 0</span><span>7</span><span>14 · Kiềm</span></div>
+        <h3>Điều gì đang diễn ra?</h3><p id="organ-mechanism" class="mechanism"></p>
+      </div>
+      <div class="journey-note"><span aria-hidden="true">ⓘ</span><p>Mô hình giáo dục được giản lược. Hoạt ảnh 90 giây không thể hiện thời gian sinh học thực tế; các chỉ số chỉ mang tính tham khảo.</p></div>
+    </aside>
+    <section class="controls" aria-label="Điều khiển hành trình">
+      <div class="progress-heading"><label for="progress">Hành trình tiêu hóa</label><output id="progress-value" for="progress">0%</output></div>
+      <input id="progress" type="range" min="0" max="1000" value="0" step="1" aria-label="Tiến trình hành trình tiêu hóa">
+      <nav id="stage-buttons" aria-label="Nhảy đến cơ quan"></nav>
+      <div class="playback"><div class="transport"><button id="pause" type="button">Tạm dừng</button><button id="resume" type="button">Chạy tiếp</button><button id="speed" type="button">Tua nhanh · 1×</button></div><span id="playback-state" role="status">Đang chạy</span><button id="restart" type="button">Bắt đầu lại</button></div>
+    </section>
+  </main>
+  <noscript>Hãy bật JavaScript để xem mô hình 3D tương tác.</noscript>
+</body>
+</html>
