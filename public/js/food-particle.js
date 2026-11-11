@@ -45,7 +45,7 @@ export function createFoodParticle(organs) {
       const elapsed = Math.max(0, delta) * this.speed;
       if (this.mode === 'toxic' && this.response === 'vomit') {
         if (this.direction === -1) {
-          this.seek(this.progress - elapsed / 9);
+          this.seek(this.progress - elapsed * 2 / 9);
           if (this.progress === 0) this.playing = false;
           return;
         }
@@ -53,13 +53,13 @@ export function createFoodParticle(organs) {
         if (this.progress >= trigger) {
           this.seek(trigger);
           this.contraction += elapsed;
-          if (this.contraction >= 2) this.direction = -1;
+          if (this.contraction >= 1) this.direction = -1;
           return;
         }
         this.seek(Math.min(trigger, this.progress + elapsed / 90));
         return;
       }
-      const multiplier = this.mode === 'toxic' && this.progress >= stages[3].start ? 3 : 1;
+      const multiplier = this.mode === 'toxic' && this.progress >= stages[3].start ? 6 : 1;
       this.seek(this.progress + elapsed * multiplier / 90);
     },
   };

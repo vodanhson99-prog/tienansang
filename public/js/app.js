@@ -81,7 +81,7 @@ try {
       reactionRevision = journey.revision;
     }
     journey.update(delta);
-    if (journey.playing && !reducedMotion.matches) reactionTime += delta * journey.speed;
+    if (journey.playing && !reducedMotion.matches) reactionTime += delta * journey.speed * (journey.mode === 'toxic' ? 2 : 1);
     anatomy.react(journey.stageIndex, journey.mode, journey.response, reactionTime, journey.playing ? delta : 0);
     anatomy.highlight(journey.stageIndex, delta);
     ui.update();

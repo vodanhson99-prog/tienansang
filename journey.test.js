@@ -14,6 +14,16 @@ for (const organ of model.organs) {
   assert.equal(organ.mesh.material.clearcoat, 1);
 }
 assert.equal(Object.keys(model.accessories).length, 3);
+const stomachPoints = model.organs[2].curve.points;
+assert.ok(Math.max(...stomachPoints.map(point => point.x)) > 1);
+assert.ok(stomachPoints.at(-1).x < stomachPoints[0].x);
+assert.ok(model.organs[3].curve.points.some(point => point.x < -0.9));
+for (const organ of Object.values(model.accessories)) {
+  organ.geometry.computeBoundingBox();
+  assert.ok([...organ.geometry.attributes.position.array].every(Number.isFinite));
+}
+assert.ok(model.accessories.liver.position.x < 0);
+assert.ok(model.accessories.gallbladder.position.y < model.accessories.liver.position.y);
 const stomachBase = model.organs[2].mesh.geometry.attributes.position.array.slice();
 model.react(2, 'toxic', 'vomit', 0.2, 1);
 assert.notDeepEqual(model.organs[2].mesh.geometry.attributes.position.array, stomachBase);
@@ -33,11 +43,11 @@ assert.ok(journey.mesh.scale.x < size);
 journey.setMode('toxic', 'vomit');
 journey.seek(0.23);
 journey.playing = true;
-journey.update(4);
+journey.update(1);
 assert.equal(journey.direction, -1);
 const turning = journey.progress;
 journey.update(1);
-assert.ok(journey.progress < turning);
+assert.ok(Math.abs(journey.progress - (turning - 2 / 9)) < 1e-8);
 assert.equal(journey.mesh.material.color.getHexString(), '22c55e');
 journey.update(100);
 assert.equal(journey.progress, 0);
@@ -46,7 +56,7 @@ journey.setMode('toxic', 'diarrhea');
 journey.seek(0.4);
 journey.playing = true;
 journey.update(1);
-assert.ok(Math.abs(journey.progress - (0.4 + 3 / 90)) < 1e-8);
+assert.ok(Math.abs(journey.progress - (0.4 + 6 / 90)) < 1e-8);
 journey.playing = false;
 const paused = journey.progress;
 journey.update(3);
