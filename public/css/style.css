@@ -94,4 +94,17 @@ h3 { font-size: 14px; font-weight: 600; margin: 28px 0 10px; }
   .view-tools { font-size: 10px; right: 0; }
   .legend { font-size: 10px; }
 }
+.scenario-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+.scenario-bar button { font-size: 12px; }
+#mode-normal[aria-pressed='true'] { background: var(--accent); color: var(--bg); }
+#mode-toxic { border-color: #c77878; }
+#mode-toxic[aria-pressed='true'] { background: #732b36; color: #fff; }
+#response-options { font-size: 12px; color: var(--muted); }
+#response { margin-left: 8px; font: inherit; background: var(--surface); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 10px; max-width: 100%; }
+select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.scenario-note, .ph-reference { color: var(--muted); font-size: 11px; line-height: 1.65; }
+.scenario-note { max-width: 90ch; margin-bottom: 20px; }
+.symptoms { font-size: 13px; line-height: 1.7; color: var(--muted); }
+.toxic-mode .symptoms { color: #ffb5a8; }
+[hidden] { display: none !important; }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; scroll-behavior: auto !important; } }

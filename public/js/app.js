@@ -67,13 +67,22 @@ try {
     renderer.setAnimationLoop(null);
     status.textContent = 'Kết nối WebGL bị gián đoạn. Hãy tải lại trang để tiếp tục.';
   });
+  let reactionTime = 0;
+  let reactionRevision = journey.revision;
   let previous = performance.now();
   document.addEventListener('visibilitychange', () => { previous = performance.now(); });
   renderer.setAnimationLoop(now => {
     const delta = Math.min(Math.max((now - previous) / 1000, 0), 0.1);
     previous = now;
     if (document.hidden) return;
+    if (reactionRevision !== journey.revision) {
+      anatomy.react(0, 'normal', journey.response, 0, 0);
+      reactionTime = 0;
+      reactionRevision = journey.revision;
+    }
     journey.update(delta);
+    if (journey.playing && !reducedMotion.matches) reactionTime += delta * journey.speed;
+    anatomy.react(journey.stageIndex, journey.mode, journey.response, reactionTime, journey.playing ? delta : 0);
     anatomy.highlight(journey.stageIndex, delta);
     ui.update();
     controls.update();
